@@ -1,0 +1,376 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Flutter Codelab / Coding Roulette: Architecting your Flutter Apps Workshop (pt.1): Creating the Splash Page</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id="flutter-codelab-cr2-1"
+                  title="Flutter Codelab / Coding Roulette: Architecting your Flutter Apps Workshop (pt.1): Creating the Splash Page"
+                  environment="web"
+                  feedback-link="https://romanjustcodes.web.app">
+    
+      <google-codelab-step label="Overview" duration="0">
+        <h2 is-upgraded>What You&#39;ll Build in this Workshop:</h2>
+<ul>
+<li>A simple, but well-architected Flutter Application, consisting of: Splash Page, Landing Page, Details Page, Shopping Cart, Favorites Page.</li>
+<li>Create Flutter User interfaces with ease</li>
+<li>Common Flutter Layout strategies using just core widgets</li>
+<li>Creating custom Flutter widgets and achieve widget composition</li>
+<li>Creating Dart models to mock up app data</li>
+<li>Import network images</li>
+<li>Using Material Icon fonts</li>
+<li>State Management using Provider to decouple Business Logic of Components (BLoC)</li>
+<li>Animations in Flutter using core Animated Widgets and Tweens</li>
+<li>Stateful and Stateless Widgets</li>
+</ul>
+<p class="image-container"><img alt="Full Application" src="img/687d0f16afa2de4b.png"><img alt="Full Application" src="img/fccea24fd3b98711.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Pre-requisites" duration="0">
+        <ul>
+<li>A computer with a browser</li>
+<li>An internet connection</li>
+</ul>
+<aside class="special"><p>We&#39;ll be using <a href="https://dartpad.dev/" target="_blank">DartPad</a>, a web-based, open-source tool that offers an online playground for learning Dart and Flutter. For more info, visit <a href="https://dart.dev/tools/dartpad" target="_blank">this link</a>.</p>
+</aside>
+<p>For the <strong>Coding Roulette Session</strong>:</p>
+<ul>
+<li>We&#39;ll be using <a href="https://code.visualstudio.com/learn/collaboration/live-share" target="_blank"><strong>LiveShare</strong></a>, a web-based VS Code plugin for real-time collaborative development.</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Launching DartPad" duration="1">
+        <p><a href="https://dartpad.dev/" target="_blank">DartPad</a> will be our Flutter development editor, so let&#39;s set it up for that.</p>
+<p>First, go to a browser and launch <a href="https://dartpad.dev/" target="_blank">dartpad.dev</a>. Your browser should look as follows:</p>
+<p class="image-container"><img alt="DartPad on the Web" src="img/864504f137532d7c.png"></p>
+<h2 is-upgraded>Setting up DartPad for Flutter Development</h2>
+<p>By default, DartPad is set up for Dart development. For Flutter development, do the following steps:</p>
+<ul>
+<li>From the top menu, select <strong>New Pad</strong>.</li>
+</ul>
+<p class="image-container"><img alt="Select New Pad" src="img/1f549a3175199a60.png"></p>
+<ul>
+<li>If prompted to discard changes of the current pad, click <strong>OK</strong>.</li>
+</ul>
+<p class="image-container"><img alt="Create New Pad" src="img/e78af321bbfdae09.png"></p>
+<ul>
+<li>From the <strong>New Pad</strong> dialog, select <strong>Flutter</strong>. Click <strong>Create</strong>.</li>
+</ul>
+<p class="image-container"><img alt="Select Flutter" src="img/236c1c1004b65cd2.png"></p>
+<p>You should be all set! Now you&#39;re ready to start coding in Flutter right from your browser. If you hit the <strong>Run</strong> button, you will see the generated output on the right panel.</p>
+<p class="image-container"><img alt="Select Flutter" src="img/2f5f9922e4dd8ade.png"></p>
+<p>Are you ready? Let&#39;s go to the next step!</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Initial Setup" duration="2">
+        <p>For the initial page in this application, we&#39;ll be building the Splash Screen.</p>
+<p>This is what we&#39;ll be accomplishing in this codelab:</p>
+<p class="image-container"><img alt="Splash Screen" src="img/c373f5824acc69b.png"></p>
+<h2 is-upgraded>Splash Screen and its widget composition</h2>
+<p>The following illustration shows a schematic view of the widget composition we&#39;ll accomplish while building the layout for our splash screen widget:</p>
+<p class="image-container"><img alt="Splash Screen" src="img/de8edee8c9f023ce.png"></p>
+<h2 is-upgraded>Start Coding the App</h2>
+<p>Let&#39;s start coding this application from scratch. Remove all code from the editor and leave just the following code:</p>
+<pre><code language="language-flutter" class="language-flutter">import &#39;package:flutter/material.dart&#39;;
+
+void main() {
+  // TODO: more code here later
+}
+
+</code></pre>
+<p>We are importing the Material Library Flutter package and like every Flutter app, the main entrypoint is the <strong>main</strong> method. Inside this method is where things kick off. We&#39;ll get back to this point in a minute.</p>
+<p>Inside the <strong>main</strong> method, add the following code:</p>
+<pre><code language="language-flutter" class="language-flutter">// add this code inside your void main():
+
+runApp(
+  MaterialApp(
+    debugShowCheckedModeBanner: false,
+    home: SplashPage()
+  )
+);
+
+</code></pre>
+<p class="image-container"><img alt="Main Method" src="img/e651526e9fade398.png"></p>
+<aside class="warning"><p>Don&#39;t mind the error you&#39;re seeing on the SplashPage widget since we haven&#39;t created yet. We&#39;ll get to it in a minute.</p>
+</aside>
+<p>The <a href="https://api.flutter.dev/flutter/widgets/runApp.html" target="_blank"><strong>runApp</strong></a> method is part of the Flutter framework and is in charge of mounting the root widget on the widget tree. We create the first widget (MaterialApp) which represents the application&#39;s root widget.</p>
+<p>We disable the debugging sash by setting the <strong>debugShowCheckedModeBanner</strong> to <strong><em>false</em></strong>, and set the <strong>home</strong> property of the MaterialApp widget to be our SplashPage widget, which we&#39;ll create in a moment.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Create the SplashPage Widget" duration="3">
+        <p>Let&#39;s create the SplashPage Widget.</p>
+<p>Right under the <strong>main</strong> method, create a <strong><em>StatelessWidget</em></strong> called <strong>SplashPage</strong>. We create it as Stateless since we won&#39;t be maintaing state at the moment. More info on StatelessWidgets <a href="https://api.flutter.dev/flutter/widgets/StatelessWidget-class.html" target="_blank">here</a>.</p>
+<p>Since every widget has a <strong>build</strong> method, add one, and return a <strong>Scaffold</strong> widget. We are using a <a href="https://api.flutter.dev/flutter/material/Scaffold-class.html" target="_blank">Scaffold</a> widget since it&#39;s a kind of widget that implements the basic material design visual layout structure and it is a convenient way to start as the foundation of a full-blown page as it allows to add other core components to it (i.e. <strong>AppBar</strong>, <strong>Drawer</strong>, <strong>BottomBar</strong>, etc.).</p>
+<p>Set its <strong>backgroundColor</strong> property to a color that later we&#39;ll use it as our main theme color:</p>
+<p class="image-container"><img alt="Splash Page" src="img/5b3c18855944682a.png"></p>
+<p>The output of that would look like this:</p>
+<p class="image-container"><img alt="Splash Page" src="img/9a2c6cce02d677a7.png"></p>
+<aside class="special"><p>The <a href="https://api.flutter.dev/flutter/widgets/StatelessWidget/build.html" target="_blank">build</a> method gets executed by Flutter when mounting the widget on the widget tree, which in turn builds its contents; in the case of a <a href="https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html" target="_blank">StatefulWidget</a>, every time its state changes. We&#39;ll be dealing with states later in upcoming labs.</p>
+</aside>
+<h2 is-upgraded>Before We Proceed Further...</h2>
+<p>We need to pull in some pre-defined static data (images, colors, etc.) that we&#39;ll use throughout the application, and for convenience, we&#39;ve pre-packaged them all into a simple convenient utility class called <strong>Utils</strong>, that contains the static data to be used as <strong>static</strong> variables, since this data won&#39;t change.</p>
+<p>Go ahead and copy this class at the bottom of the file. We&#39;ll add other properties to it, but this is a good starting point:</p>
+<pre><code>class Utils {
+  static const Color mainColor = Color(0xFFFF0F7E);
+  static const Color mainDark = Color(0xFF980346);
+  static const String donutLogoWhiteNoText = &#39;https://romanejaquez.github.io/flutter-codelab4/assets/donut_shop_logowhite_notext.png&#39;;
+  static const String donutLogoWhiteText = &#39;https://romanejaquez.github.io/flutter-codelab4/assets/donut_shop_text_reversed.png&#39;;
+  static const String donutLogoRedText = &#39;https://romanejaquez.github.io/flutter-codelab4/assets/donut_shop_text.png&#39;;
+  static const String donutTitleFavorites = &#39;https://romanejaquez.github.io/flutter-codelab4/assets/donut_favorites_title.png&#39;;
+  static const String donutTitleMyDonuts = &#39;https://romanejaquez.github.io/flutter-codelab4/assets/donut_mydonuts_title.png&#39;;
+  static const String donutPromo1 = &#39;https://romanejaquez.github.io/flutter-codelab4/assets/donut_promo1.png&#39;;
+  static const String donutPromo2 = &#39;https://romanejaquez.github.io/flutter-codelab4/assets/donut_promo2.png&#39;;
+  static const String donutPromo3 = &#39;https://romanejaquez.github.io/flutter-codelab4/assets/donut_promo3.png&#39;;
+}
+
+</code></pre>
+<p>Ok - Back to the <strong>SplashPage</strong> widget. Replace the hard-coded color as the <strong>backgroundColor</strong> property of the <strong>Scaffold</strong> and use the predefined <strong>Utils.mainColor</strong> instead:</p>
+<p class="image-container"><img alt="Splash Page" src="img/c418586163c21a4c.png"></p>
+<p>No difference should be noticed. It&#39;s mostly the convenience. Let&#39;s proceed by adding a few images to it. We want to add two <strong>Image</strong> widgets (we&#39;ll use <strong>Image.network</strong> since we&#39;ll pulling images from the internet); they will be laid out vertically (using a <strong>Column</strong> widget), centered inside the <strong>body</strong> property of a <strong>Scaffold</strong>, as follows:</p>
+<p class="image-container"><img alt="Splash Page" src="img/a875bd6dc3951285.png"></p>
+<p>This is the output of the code above:</p>
+<p class="image-container"><img alt="Splash Page" src="img/1214f0ad878e7ec2.png"></p>
+<p>You need to vertically align the images inside the <strong>Column</strong> widget, therefore proceed to apply the <strong>mainAxisAlignment</strong> and <strong>crossAxisAlignment</strong> to <strong>Center</strong> respectively:</p>
+<p class="image-container"><img alt="Splash Page" src="img/d01216f6f1d6a90d.png"></p>
+<p>Now they should be centered:</p>
+<p class="image-container"><img alt="Splash Page" src="img/582f3feee7eaa5a.png"></p>
+<p>Before adding the splash screen simulation, we want to create a dummy landing page, to which our splash screen should navigate after the delay.</p>
+<h2 is-upgraded>Create Dummy Landing Page</h2>
+<p>We&#39;ll create a widget page called <strong>DonutShopMain</strong> which will represent the landing / main page of this application. For now we&#39;ll create it as a placeholder for the splash screen to redirect to, but we&#39;ll further define it on later codelabs.</p>
+<p>Create a <strong>Stateless</strong> widget class called <strong>DonutShopMain</strong>, and as every custom widget, override the <strong>build</strong> method that just returns a simple <strong>Scaffold</strong> with a <strong>Text</strong> widget wrapped inside a <strong>Center</strong> widget as its <strong>body</strong>; add the text &#34;Hello Donut Shop&#34; to the <strong>Text</strong> widget, as follows:</p>
+<p class="image-container"><img alt="Splash Page" src="img/d0f344c2ab2dea7b.png"></p>
+<aside class="special"><p>You can add this class anywhere at the bottom of this file (or if you&#39;re coding this app on VS Code or other IDE, you can extract this class into another file and do the proper imports).</p>
+</aside>
+<p>With that in place, let&#39;s proceed with the next step, which is introducing a delay on the Splash Page which then will trigger a navigation action to this sample page. Let&#39;s go!</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Simulate a Splash Screen Delay" duration="0">
+        <p>Let&#39;s proceed now to add the behavior of a splash screen by introducing a small delay, which will lead to the app navigating to the next page.</p>
+<p class="image-container"><img alt="Splash Page" src="img/25e86f791158ff0.png"></p>
+<p>So what we&#39;ll do now is simulate a delay in the Splash Page, then navigate to our main page. For that we&#39;ll make use of a <strong>Future</strong>, which is an object that represents a delayed computation. More on Futures <a href="https://api.flutter.dev/flutter/dart-async/Future-class.html" target="_blank">here</a>.</p>
+<p>Back in our <strong>SplashPage</strong> widget, let&#39;s add a Future, and use one of the provided methods called <strong>delayed</strong>. This method takes a duration, and a callback, which gets executed once the duration (or delay) has ellapsed. We&#39;ll set a duration of 2 seconds, and when this time has ellapsed, it will execute our callback, which in turn will perform a Navigation to our list page.</p>
+<p>Add a <strong><em>Future.delayed</em></strong> inside the SplashPage widget&#39;s <strong>build</strong> method, right above the <strong>return</strong> statement, as such:</p>
+<p class="image-container"><img alt="Future" src="img/b1d3e24fee43d2c6.png"></p>
+<p>Let&#39;s dissect this code. <strong>Future.delayed</strong> takes two parameters: a <strong>Duration</strong> object with is <strong>seconds</strong> property set to 2, and a callback. When the 2 seconds have ellapsed, it will call the callback.</p>
+<p>The callback has inside a trigger to perform a navigation. We use <strong>Navigator.of</strong> to push a new route to the global navigation stack, using the <strong>BuildContext </strong><a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html" target="_blank">context</a> to retrieve the closest navigator in the hierarchy, in our case, the one available by default from the <strong>MaterialApp</strong>. We use a <a href="https://api.flutter.dev/flutter/material/MaterialPageRoute-class.html" target="_blank"><strong>MaterialPageRoute</strong></a> to wrap the widget we want to navigate to, in our case the <strong>DonutShopMain</strong> widget page created earlier.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Run the Application" duration="0">
+        <p>Now, let&#39;s take our current implementation for a spin with what we have so far.</p>
+<p>In DartPad, click <strong>Run</strong>. After a 2 seconds delay, you should see the <strong>SplashSpage</strong> widget slide out of view and sliding in comes the <strong>DonutShopMain</strong> widget, which will be our landing page for now.</p>
+<p class="image-container"><img alt="Run the App" src="img/bc5adeff14a7af6a.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Wrap-up" duration="0">
+        <p>Congrats in making it this far! In this codelab, we accomplished the following:</p>
+<ul>
+<li>Performed the initial setup of our DartPad environment</li>
+<li>Created our initial boilerplate startup code</li>
+<li>Created a SplashScreen widget with core widgets</li>
+<li>Created a dummy landing page (DonutShopMain) for the SplashPage widget to navigate to</li>
+<li>Introduced Futures to add a small delay before proceeding further</li>
+<li>Tapped into the navigation capabilities of Flutter</li>
+</ul>
+<p>In the <a href="https://romanejaquez.github.io/flutter-codelab-cr2-2" target="_blank">next codelab</a>, we&#39;ll flesh out the <strong>ListPage</strong> widget and learn more about creating custom widgets. See you there!</p>
+<h3 is-upgraded>Please don&#39;t forget to follow me on social media:</h3>
+<ul>
+<li>On Twitter (<a href="https://www.twitter.com/drcoderz" target="_blank">@drcoderz</a>)</li>
+<li>On YouTube (<a href="https://www.youtube.com/channel/UCKsp3r1ERjCpKJtD2n5WtPg" target="_blank">Roman Just Codes</a>)</li>
+<li>On My <a href="https://romanjustcodes.web.app/#/home" target="_blank">Personal Portfolio</a></li>
+<li>On <a href="https://medium.com/@romanejaquez" target="_blank">Medium</a></li>
+<li>On <a href="https://www.linkedin.com/in/roman-jaquez-8941a424/" target="_blank">LinkedIn</a></li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="BONUS Lab: Add Animation to the Splash Screen" duration="0">
+        <p>We&#39;ll add some animations to the splash screen by making the donut logo rotate indefinitely in place.</p>
+<p class="image-container"><img alt="Animation" src="img/b155d984d040445.gif"></p>
+<p>Well-designed animations make a UI feel more intuitive, contribute to the slick look and feel of a polished app, and improve the user experience. Flutter&#39;s animation support makes it easy to implement a variety of animation types. More on Flutter animations <a href="https://flutter.dev/docs/development/ui/animations" target="_blank">here</a>;</p>
+<h2 is-upgraded>Convert the Splash Page into a StatefulWidget</h2>
+<p>Whenever you want to add interactivity to your widgets (changes in its state, animations), they must inherit <strong>StatefulWidget</strong>, and implement two classes: a subclass of <strong>StatefulWidget</strong> and a subclass of <strong>State</strong>.</p>
+<p>Let&#39;s do it as a 3-step process:</p>
+<ul>
+<li>Create a class right under the the existing <strong>SplashPage</strong> widget, and call it <strong>SplashPageState</strong> (the norm is to call the <strong>State</strong> class the name of the main widget + the word &#34;State&#34; at the end). Make it extend <strong>State&lt;SplashPage&gt;</strong></li>
+<li>Move the <strong>build</strong> method from the <strong>SplashPage</strong> widget to the newly created <strong>SplashPageState</strong> widget</li>
+<li>The <strong>SplashPage</strong> widget, which currently inherits <strong>StatelessWidget</strong>, make it so it inherits <strong>StatefulWidget</strong>; override the <strong>createState</strong> method and make it return an instance of type <strong>SplashPageState</strong>. See code below:</li>
+</ul>
+<p class="image-container"><img alt="Animation" src="img/47e5b30624be1695.png"></p>
+<p>We will be adding an explicit animation transition to this widget. <a href="https://flutter.dev/docs/codelabs/explicit-animations" target="_blank">Explicit animations</a> are a set of controls for telling Flutter how to rapidly rebuild the widget tree while changing widget properties to create animation effects. This approach enables you to create effects that you can&#39;t achieve using <a href="https://flutter.dev/docs/codelabs/implicit-animations" target="_blank">implicit animations</a>.</p>
+<p>The <a href="https://api.flutter.dev/flutter/animation/AnimationController-class.html" target="_blank">AnimationController</a> is a special Animation object that generates a new value whenever the hardware is ready for a new frame. All explicit animations require an AnimationController.</p>
+<aside class="special"><p>When dealing with explicit animations in Flutter, you must create an AnimationController, plus you need to implement the SingleTickerProviderStateMixin mixin (for single-animation, single-controller widgets) or the TickerProviderStateMixin (for multi-animation, multi-controller widgets). More on mixins <a href="https://flutterbyexample.com/lesson/mixins" target="_blank">here</a>.</p>
+</aside>
+<p>In the <strong>SplashPageState</strong> class, add the <strong>SingleTickerProviderStateMixin</strong> mixin, which will provide this class with the <strong>Ticker</strong> instance it needs; an AnimationController needs a <strong>TickerProvider</strong> — the AnimationController constructor takes a required parameter vsync that must implement a TickerProvider interface, therefore we are implementing <strong>SingleTickerProviderStateMixin</strong> on this class so it serves as the AnimationController&#39;s ticker provider.</p>
+<p class="image-container"><img alt="Animation" src="img/44b295cc1c084853.png"></p>
+<p>Inside the <strong>SplashPageState</strong>, at the top, let&#39;s add two properties, one called <strong>donutController</strong> type <strong>AnimationController</strong>, and another one called <strong>rotationAnimation</strong> type <strong>Animation&lt;double&gt;</strong>.</p>
+<p class="image-container"><img alt="Animation" src="img/a0cb5b9e908451f3.png"></p>
+<p>In this same <strong>SplashPageState</strong>, override the <a href="https://api.flutter.dev/flutter/widgets/State/initState.html" target="_blank"><strong>initState</strong></a> method; in this method is where you usually initialize things; this method is called once when this widget gets mounted on the widget tree.</p>
+<p>Inside this method, start by calling <strong>super.initState()</strong>, followed by instantiating the <strong>donutController</strong> and assigning an instance of <strong>AnimationController</strong>, which takes two parameters:</p>
+<ul>
+<li><strong><em>const Duration(seconds: 5)</em></strong>)</li>
+<li>vsync: the instance of the Ticker provider; in this case, the existing instance (<strong>this</strong>) since we are implementing the <strong>SingleTickerProviderStateMixin</strong>. Follow the instantiation by quicky executing its <strong>repeat</strong> method by using the <strong><em>spread</em></strong> operator (the two dots right after the instance; i.e. ..repeat()). What this does is allow the animation to repeat in an infinite loop. We&#39;ll explore other options of the <strong>AnimationController</strong> later in this series, or you can follow this <a href="https://api.flutter.dev/flutter/animation/AnimationController-class.html" target="_blank">link</a>.</li>
+</ul>
+<p class="image-container"><img alt="Animation" src="img/56ef8494bccaa69e.png"></p>
+<p>Right after, instantiate the <strong>rotationAnimation</strong> using a (<strong>Tween</strong>)[https://api.flutter.dev/flutter/animation/Tween-class.html] animation, which is nothing but an animation between two values (begin and end). Since we are feeding a value that changes between two values (a range) over a period of time along a curve, we instantiate it as follows:</p>
+<ul>
+<li>begin: the value when to start the rotation (i.e. 0)</li>
+<li>end: the value when to end the rotation (i.e. 1)</li>
+</ul>
+<p>Then call its <strong>animate</strong> method right away, passing the exising <strong>AnimationController</strong> called <strong>donutController</strong> and an existing <strong>Curve</strong> value (Curves.linear). See code below:</p>
+<p class="image-container"><img alt="Animation" src="img/b1f72dce2dffe4dd.png"></p>
+<p>Now, let&#39;s apply this animation to our logo image - the first <strong>Image</strong> widget inside our <strong>Column</strong> widget, by wrapping it inside a <strong>RotationTransition</strong> widget. The <strong>RotationTransition</strong> widget is one of the <strong>explicit</strong> animation widgets available in Flutter. Aside from setting the <strong>Image</strong> widget as the child of the <strong>RotationTransition</strong> widget, set its <strong>turns</strong> property to the <strong>rotationAnimation</strong> animation we created earlier, which supplies the <strong>Tween</strong> animation between the two points (the rotation) over a period of time (the duration supplied by the <strong>AnimationController</strong>) at the right frame (provided by the ticker provider, the <strong>State</strong> class itself):</p>
+<p class="image-container"><img alt="Animation" src="img/9b29b99a1280623f.png"></p>
+<p>When dealing with <strong>AnimationController</strong> objects, since they take up precious resources during their execution, it is best practice to always dispose of them, and the way to do it is, well, calling <strong>dispose()</strong> on them, which deallocates resources used by it.</p>
+<p>Override the <strong>dispose</strong> method of the <strong>State</strong> class (SplashPageState) - just like the <strong>initState()</strong>, and then call <strong>donutController</strong>&#39;s <strong>dispose()</strong> method, followed by a call to the <strong>super.dispose()</strong> method, to denote this method is being overriden but still continue disposing of this widget as normal:</p>
+<p class="image-container"><img alt="Animation" src="img/9348c24db3443ce3.png"></p>
+<h2 is-upgraded>Final Product ###:</h2>
+<p>The final product should look like this:</p>
+<p class="image-container"><img alt="Animation" src="img/f1c132766e7aa5a9.gif"></p>
+<p>And with that, we&#39;ve implemented a simple rotation animation, which brings some interactivity and a nice touch to our splash screen, while being responsible and cleaning up after ourselves ;). You should be proud - things are taking a nice shape from the get-go!</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Complete Code" duration="0">
+        <p>In case you fell behind on this codelab, below is the whole code for this codelab in a way you can copy / paste directly into DartPad:</p>
+<pre><code language="language-flutter" class="language-flutter">import &#39;package:flutter/material.dart&#39;;
+
+void main() {
+  runApp(
+    MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: SplashPage()
+    )
+  );
+}
+
+class SplashPage extends StatefulWidget {
+
+  @override 
+  SplashPageState createState() =&gt; SplashPageState();
+}
+
+class SplashPageState extends State&lt;SplashPage&gt; 
+  with SingleTickerProviderStateMixin {
+
+  AnimationController? donutController;
+  Animation&lt;double&gt;? rotationAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    donutController = AnimationController(
+      duration: const Duration(seconds: 5), 
+      vsync: this)..repeat();
+
+    rotationAnimation = Tween&lt;double&gt;(begin: 0, end: 1)
+    .animate(CurvedAnimation(parent: donutController!, curve: Curves.linear));
+  }
+
+  @override 
+  void dispose() {
+    donutController!.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
+    Future.delayed(const Duration(seconds: 2), () {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) =&gt; DonutShopMain())
+      );
+    });
+
+    return Scaffold(
+      backgroundColor: Utils.mainColor,
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            RotationTransition(
+              turns: rotationAnimation!,
+              child: Image.network(Utils.donutLogoWhiteNoText, width: 100, height: 100),
+            ),
+            Image.network(Utils.donutLogoWhiteText, width: 150, height: 150)
+          ],
+        ),
+      )
+    );
+  }
+}
+
+class DonutShopMain extends StatelessWidget {
+
+  @override 
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Text(&#39;Hello, Donut Shop!&#39;)
+      )
+    );
+  }
+}
+
+class Utils {
+  static const Color mainColor = Color(0xFFFF0F7E);
+  static const Color mainDark = Color(0xFF980346);
+  static const String donutLogoWhiteNoText = &#39;https://romanejaquez.github.io/flutter-codelab4/assets/donut_shop_logowhite_notext.png&#39;;
+  static const String donutLogoWhiteText = &#39;https://romanejaquez.github.io/flutter-codelab4/assets/donut_shop_text_reversed.png&#39;;
+  static const String donutLogoRedText = &#39;https://romanejaquez.github.io/flutter-codelab4/assets/donut_shop_text.png&#39;;
+  static const String donutTitleFavorites = &#39;https://romanejaquez.github.io/flutter-codelab4/assets/donut_favorites_title.png&#39;;
+  static const String donutTitleMyDonuts = &#39;https://romanejaquez.github.io/flutter-codelab4/assets/donut_mydonuts_title.png&#39;;
+  static const String donutPromo1 = &#39;https://romanejaquez.github.io/flutter-codelab4/assets/donut_promo1.png&#39;;
+  static const String donutPromo2 = &#39;https://romanejaquez.github.io/flutter-codelab4/assets/donut_promo2.png&#39;;
+  static const String donutPromo3 = &#39;https://romanejaquez.github.io/flutter-codelab4/assets/donut_promo3.png&#39;;
+}
+
+</code></pre>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>
